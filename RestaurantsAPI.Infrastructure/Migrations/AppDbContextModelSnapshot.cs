@@ -33,6 +33,9 @@ namespace RestaurantsAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("KiloCalories")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,17 +104,20 @@ namespace RestaurantsAPI.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("City")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_City");
 
                             b1.Property<string>("PostalCode")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_PostalCode");
 
                             b1.Property<string>("Street")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_Street");
 
                             b1.HasKey("RestaurantId");
 
-                            b1.ToTable("Addresses");
+                            b1.ToTable("Restaurants");
 
                             b1.WithOwner()
                                 .HasForeignKey("RestaurantId");

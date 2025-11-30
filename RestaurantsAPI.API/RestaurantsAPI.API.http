@@ -1,13 +1,34 @@
 @host = https://localhost
-@port = 7005
+@port = 7218
 
 @RestaurantsAPI.API_HostAddress = {{host}}:{{port}}
 
-GET {{RestaurantsAPI.API_HostAddress}}/weatherforecast/
+GET {{RestaurantsAPI.API_HostAddress}}/api/restaurants
 Accept: application/json
 ProjectUrl: {{$projectUrl}} 
-Guid:{{$guid}}
-LocalDate: {{$localDate}}
-Random-int: {{$randomInt}}
+
 
 ###
+
+GET {{RestaurantsAPI.API_HostAddress}}/api/restaurants/2
+Accept: application/json
+ProjectUrl: {{$projectUrl}} 
+
+###
+
+POST {{RestaurantsAPI.API_HostAddress}}/api/restaurants
+Accept: application/json
+Content-Type: application/json
+ProjectUrl: {{$projectUrl}} 
+
+{
+  "Name": "New Restaurant - 4",
+  "Description": "A newly added restaurant",
+    "Category": "Fast Food",
+    "HasDelivery": true,
+    "ContactEmail": "newrest4", 
+    "ContactNumber": "123-456-7890",
+    "City": "Sample City",
+    "Street": "123 Sample St",
+    "PostalCode": "12345"
+}

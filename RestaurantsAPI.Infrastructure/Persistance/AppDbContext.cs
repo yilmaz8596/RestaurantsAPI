@@ -5,17 +5,21 @@ using RestaurantsAPI.Domain.Entities;
 
 namespace RestaurantsAPI.Infrastructure.Persistance
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext(DbContextOptions<AppDbContext> options): DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> dbContextOptions) : base(dbContextOptions)
-        {
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Restaurant>()
-                .OwnsOne(r => r.Address);
+             .OwnsOne(r => r.Address, a =>
+             {
+                 a.Property(addr => addr.City).HasColumnName("Address_City");
+                 a.Property(addr => addr.Street).HasColumnName("Address_Street");
+                 a.Property(addr => addr.PostalCode).HasColumnName("Address_PostalCode");
+             });
 
             modelBuilder.Entity<Restaurant>()
                 .HasMany(r => r.Dishes)
@@ -26,7 +30,6 @@ namespace RestaurantsAPI.Infrastructure.Persistance
 
         public DbSet<Restaurant> Restaurants { get; set; } = default!;
         public DbSet<Dish> Dishes { get; set; } = default!;
-        public DbSet<Address> Addresses { get; set; } = default!;
 
     }
 

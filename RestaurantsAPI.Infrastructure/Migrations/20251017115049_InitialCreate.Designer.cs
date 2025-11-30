@@ -11,8 +11,8 @@ using RestaurantsAPI.Infrastructure.Persistance;
 namespace RestaurantsAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251017074941_init")]
-    partial class init
+    [Migration("20251017115049_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,9 @@ namespace RestaurantsAPI.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("KiloCalories")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -104,17 +107,20 @@ namespace RestaurantsAPI.Infrastructure.Migrations
                                 .HasColumnType("int");
 
                             b1.Property<string>("City")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_City");
 
                             b1.Property<string>("PostalCode")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_PostalCode");
 
                             b1.Property<string>("Street")
-                                .HasColumnType("nvarchar(max)");
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address_Street");
 
                             b1.HasKey("RestaurantId");
 
-                            b1.ToTable("Addresses");
+                            b1.ToTable("Restaurants");
 
                             b1.WithOwner()
                                 .HasForeignKey("RestaurantId");
